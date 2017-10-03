@@ -43,6 +43,8 @@
     <module>jvis</module>
     <module>digiluguv6</module>
     <module>lkfv6</module>
+    <module>kik-crosscheck</module>
+    <module>pria-crosscheck</module>
 
 
 <!-- These modules do compile but needs review - consult with epria or example module -->

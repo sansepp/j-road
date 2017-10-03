@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>xtee-client-ariregv6</artifactId>
+    <artifactId>xtee-client-ariregv6-sf</artifactId>
     <name>ariregv6 client services</name>
+    <version>4.2.2</version>
 
     <parent>
         <groupId>com.nortal.jroad</groupId>
