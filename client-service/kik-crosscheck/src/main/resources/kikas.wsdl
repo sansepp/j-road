@@ -1,0 +1,208 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:viki="http://producers.rmviki.xtee.riik.ee/producer/rmviki"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki">
+  <types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki">
+      <xsd:import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      <xsd:complexType name="KulutusRistkontrollRequest">
+        <xsd:sequence>
+          <xsd:element name="Kuupaev" nillable="true" type="xsd:date"/>
+          <xsd:element name="ReaSumma" nillable="true" type="xsd:decimal"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Valjastaja">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Nimi" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Projektlyhi">
+        <xsd:sequence>
+          <xsd:element name="Kood" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Nimi" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Meede">
+        <xsd:sequence>
+          <xsd:element name="Nimi" nillable="true" type="xsd:string"/>
+          <xsd:element name="Number" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Kulurida">
+        <xsd:sequence>
+          <xsd:element name="Number" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Valjastaja" nillable="true" type="viki:Valjastaja"/>
+          <xsd:element name="Kuupaev" nillable="true" type="xsd:date"/>
+          <xsd:element name="Summa" nillable="true" type="xsd:decimal"/>
+          <xsd:element name="Kaibemaks" nillable="true" type="xsd:decimal"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Kirjeldus" nillable="true" type="xsd:string"/>
+          <xsd:element name="Projekt" nillable="true" type="viki:Projektlyhi"/>
+          <xsd:element name="Meede" nillable="true" type="viki:Meede"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="KulutusRistkontrollResponse">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="viki:Kulurida[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Taotleja">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Nimi" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Kood" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ProjektRistkontrollRequest">
+        <xsd:sequence>
+          <xsd:element name="Taotleja" nillable="true" type="viki:Taotleja"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Asukoht">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Kirjeldus" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Ehak" nillable="true" type="xsd:long"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Asukohad">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="viki:Asukoht[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Seisund">
+        <xsd:sequence>
+          <xsd:element name="Nimetus" nillable="true" type="xsd:string"/>
+          <xsd:element name="Kuupaev" nillable="true" type="xsd:date"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Seisundid">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="viki:Seisund[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Finantsallikas">
+        <xsd:sequence>
+          <xsd:element name="Kood" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Nimi" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Summa" nillable="true" type="xsd:decimal"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Finantsallikad">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="viki:Finantsallikas[]"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Projekt">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Kood" nillable="true" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="Nimi" nillable="true" type="xsd:string"/>
+          <xsd:element name="Taotleja" nillable="true" type="viki:Taotleja"/>
+          <xsd:element name="Asukohad" nillable="true" type="viki:Asukohad"/>
+          <xsd:element name="Seisundid" nillable="true" type="viki:Seisundid"/>
+          <xsd:element name="Meede" nillable="true" type="viki:Meede"/>
+          <xsd:element name="Programmperiood" nillable="true" type="xsd:string"/>
+          <xsd:element name="Eelarve" nillable="true" type="viki:Finantsallikad"/>
+          <xsd:element name="Maksed" nillable="true" type="viki:Finantsallikad"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ProjektRistkontrollResponse">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:sequence>
+              <xsd:element name="Projekt" minOccurs="0"
+                       maxOccurs="unbounded" type="viki:Projekt"/>
+            </xsd:sequence>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <message name="ProjektRistkontroll.Request">
+    <part name="keha" type="viki:ProjektRistkontrollRequest"/>
+  </message>
+  <message name="ProjektRistkontroll.Response">
+    <part name="paring" type="viki:ProjektRistkontrollRequest"/>
+    <part name="keha" type="viki:ProjektRistkontrollResponse"/>
+  </message>
+  <message name="KulutusRistkontroll.Request">
+    <part name="keha" type="viki:KulutusRistkontrollRequest"/>
+  </message>
+  <message name="KulutusRistkontroll.Response">
+    <part name="paring" type="viki:KulutusRistkontrollRequest"/>
+    <part name="keha" type="viki:KulutusRistkontrollResponse"/>
+  </message>
+  <message name="standardPais">
+    <part name="asutus" element="xtee:asutus"/>
+    <part name="andmekogu" element="xtee:andmekogu"/>
+    <part name="isikukood" element="xtee:isikukood"/>
+    <part name="nimi" element="xtee:nimi"/>
+    <part name="id" element="xtee:id"/>
+  </message>
+  <portType name="RMVIKIPortType">
+    <operation name="kulutusRistkontroll">
+      <documentation>
+        <xtee:title xml:lang="et">Kuludokumentide ristkontrollimise teenus</xtee:title>
+      </documentation>
+      <xtee:version>v1</xtee:version>
+      <input message="viki:KulutusRistkontroll.Request"/>
+      <output message="viki:KulutusRistkontroll.Response"/>
+    </operation>
+    <operation name="projektRistkontroll">
+      <documentation>
+        <xtee:title xml:lang="et">Taotlejate ristkontrollimise teenus</xtee:title>
+      </documentation>
+      <xtee:version>v1</xtee:version>
+      <input message="viki:ProjektRistkontroll.Request"/>
+      <output message="viki:ProjektRistkontroll.Response"/>
+    </operation>
+  </portType>
+  <binding name="RMVIKIBinding" type="viki:RMVIKIPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="kulutusRistkontroll">
+      <soap:operation soapAction=""/>
+      <xtee:version>v1</xtee:version>
+      <input>
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+    <operation name="projektRistkontroll">
+      <soap:operation soapAction=""/>
+      <xtee:version>v1</xtee:version>
+      <input>
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="RMVIKIService">
+    <documentation>RM teenused X-Teele</documentation>
+    <port name="RMVIKIPortType" binding="viki:RMVIKIBinding">
+      <soap:address location="http://TURVASERVER/cgi-bin/consumer-proxy"/>
+      <xtee:title>RM teenused X-Teele</xtee:title>
+      <xtee:address producer="rmviki"/>
+    </port>
+  </service>
+</definitions>

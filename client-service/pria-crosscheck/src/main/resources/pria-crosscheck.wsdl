@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://producers.mait.xtee.riik.ee/producer/mait"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://producers.pria-mait.xtee.riik.ee/producer/pria-mait"
+             xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" targetNamespace="http://producers.pria-mait.xtee.riik.ee/producer/pria-mait">
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://producers.mait.xtee.riik.ee/producer/mait" elementFormDefault="qualified"
+            targetNamespace="http://producers.mait.xtee.riik.ee/producer/mait">
+      <import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      <complexType name="KulutusRistkontrollRequest">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element name="Kuupaev" type="date"/>
+          <element name="ReaSumma" type="decimal"/>
+        </sequence>
+      </complexType>
+      <element name="ProjektRistkontrollRequest" type="tns:ProjektRistkontrollRequest"/>
+      <element name="KulutusRistkontrollRequest" type="tns:KulutusRistkontrollRequest"/>
+      <complexType name="Asukoht">
+        <choice maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="0" name="Kirjeldus" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Ehak" type="long"/>
+        </choice>
+      </complexType>
+      <complexType name="Taotleja">
+        <choice maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="0" name="Nimi" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Kood" type="long"/>
+        </choice>
+      </complexType>
+      <complexType name="Projekt">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="0" name="Kood" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Nimi" type="string"/>
+          <element maxOccurs="1" minOccurs="1" name="Taotleja" type="tns:Taotleja"/>
+          <element maxOccurs="1" minOccurs="1" name="Asukohad" type="tns:Asukohad"/>
+          <element maxOccurs="1" minOccurs="1" name="Seisundid" type="tns:Seisundid"/>
+          <element maxOccurs="1" minOccurs="1" name="Meede" type="tns:Meede"/>
+          <element maxOccurs="1" minOccurs="1" name="Programmperiood" type="string"/>
+          <element maxOccurs="1" minOccurs="1" name="Eelarve" type="tns:Finantsallikad"/>
+          <element maxOccurs="1" minOccurs="1" name="Maksed" type="tns:Finantsallikad"/>
+        </sequence>
+      </complexType>
+      <complexType name="Seisundid">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="unbounded" minOccurs="1" name="Seisund" type="tns:Seisund"/>
+        </sequence>
+      </complexType>
+      <complexType name="Asukohad">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="unbounded" minOccurs="1" name="Asukoht" type="tns:Asukoht"/>
+        </sequence>
+      </complexType>
+      <complexType name="Seisund">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="1" name="Nimetus" type="string"/>
+          <element maxOccurs="1" minOccurs="1" name="Kuupaev" type="date"/>
+        </sequence>
+      </complexType>
+      <complexType name="Meede">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="1" name="Nimi" type="string"/>
+          <element maxOccurs="1" minOccurs="1" name="Number" type="long"/>
+        </sequence>
+      </complexType>
+      <complexType name="Finantsallikad">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="unbounded" minOccurs="0" name="Finantsallikas" type="tns:Finantsallikas"/>
+        </sequence>
+      </complexType>
+      <complexType name="Finantsallikas">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="1" name="Kood" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Nimi" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Summa" type="decimal"/>
+        </sequence>
+      </complexType>
+      <element name="ProjektRistkontrollResponse" type="tns:ProjektRistkontrollResponse"/>
+      <complexType name="ProjektRistkontrollResponse">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="unbounded" minOccurs="1" name="Projekt" type="tns:Projekt"/>
+        </sequence>
+      </complexType>
+      <element name="KulutusRistkontrollResponse" type="tns:KulutusRistkontrollResponse"/>
+      <complexType name="KulutusRistkontrollResponse">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="unbounded" minOccurs="1" name="Kulurida" type="tns:Kulurida"/>
+        </sequence>
+      </complexType>
+      <complexType name="ProjektRistkontrollRequest">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="1" name="Taotleja" type="tns:Taotleja"/>
+        </sequence>
+      </complexType>
+      <complexType name="Kulurida">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="1" name="Number" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Valjastaja" type="tns:Valjastaja"/>
+          <element maxOccurs="1" minOccurs="1" name="Kuupaev" type="date"/>
+          <element maxOccurs="1" minOccurs="1" name="Summa" type="decimal"/>
+          <element maxOccurs="1" minOccurs="1" name="Kaibemaks" type="decimal"/>
+          <element maxOccurs="1" minOccurs="0" name="Kirjeldus" type="string"/>
+          <element maxOccurs="1" minOccurs="1" name="Projekt" type="tns:Projektlyhi"/>
+          <element maxOccurs="1" minOccurs="1" name="Meede" type="tns:Meede"/>
+        </sequence>
+      </complexType>
+      <complexType name="Projektlyhi">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="1" name="Kood" type="string"/>
+          <element maxOccurs="1" minOccurs="0" name="Nimi" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="Valjastaja">
+        <sequence maxOccurs="1" minOccurs="1">
+          <element maxOccurs="1" minOccurs="0" name="Kood" type="long"/>
+          <element maxOccurs="1" minOccurs="0" name="Nimi" type="string"/>
+        </sequence>
+      </complexType>
+    </schema>
+  </types>
+  <message name="KulutusRistkontrollRequest">
+    <part name="keha" type="sch:KulutusRistkontrollRequest"/>
+  </message>
+  <message name="KulutusRistkontrollResponse">
+    <part name="keha" type="sch:KulutusRistkontrollResponse"/>
+  </message>
+  <message name="ProjektRistkontrollRequest">
+    <part name="keha" type="sch:ProjektRistkontrollRequest"/>
+  </message>
+  <message name="ProjektRistkontrollResponse">
+    <part name="keha" type="sch:ProjektRistkontrollResponse"/>
+  </message>
+  <message name="xteeStandardPais">
+    <part element="xtee:asutus" name="asutus"/>
+    <part element="xtee:andmekogu" name="andmekogu"/>
+    <part element="xtee:isikukood" name="isikukood"/>
+    <part element="xtee:id" name="id"/>
+    <part element="xtee:nimi" name="nimi"/>
+  </message>
+  <portType name="mait">
+    <operation name="KulutusRistkontroll">
+      <input message="tns:KulutusRistkontrollRequest" name="KulutusRistkontrollRequest"/>
+      <output message="tns:KulutusRistkontrollResponse" name="KulutusRistkontrollResponse"/>
+    </operation>
+    <operation name="ProjektRistkontroll">
+      <input message="tns:ProjektRistkontrollRequest" name="ProjektRistkontrollRequest"/>
+      <output message="tns:ProjektRistkontrollResponse" name="ProjektRistkontrollResponse"/>
+    </operation>
+  </portType>
+  <binding name="maitSoap11" type="tns:mait">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="KulutusRistkontroll">
+      <soap:operation soapAction=""/>
+      <input name="KulutusRistkontrollRequest">
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+        <soap:body namespace="http://producers.pria-mait.xtee.riik.ee/producer/pria-mait" use="literal"/>
+      </input>
+      <output name="KulutusRistkontrollResponse">
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+        <soap:body namespace="http://producers.pria-mait.xtee.riik.ee/producer/pria-mait" use="literal"/>
+      </output>
+    </operation>
+    <operation name="ProjektRistkontroll">
+      <soap:operation soapAction=""/>
+      <input name="ProjektRistkontrollRequest">
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+        <soap:body namespace="http://producers.pria-mait.xtee.riik.ee/producer/pria-mait" use="literal"/>
+      </input>
+      <output name="ProjektRistkontrollResponse">
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+        <soap:header encodingStyle="" message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+        <soap:body namespace="http://producers.pria-mait.xtee.riik.ee/producer/pria-mait" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="maitService">
+    <port binding="tns:maitSoap11" name="maitSoap11">
+      <soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+    </port>
+  </service>
+</definitions>
