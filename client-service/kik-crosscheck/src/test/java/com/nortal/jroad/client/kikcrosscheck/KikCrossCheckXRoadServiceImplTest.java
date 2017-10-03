@@ -1,7 +1,7 @@
 package com.nortal.jroad.client.kikcrosscheck;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.kikcrosscheck.types.ee.riik.xtee.rmviki.producers.producer.rmviki.Projekt;
+import com.nortal.jroad.client.kikcrosscheck.types.ee.x_road.kikas.Projekt;
 import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import java.util.List;
 import javax.annotation.Resource;
@@ -16,8 +16,14 @@ public class KikCrossCheckXRoadServiceImplTest extends BaseXRoadServiceImplTest 
   private KikCrossCheckXRoadService kikCrossCheckXRoadService;
 
   @Test
-  public void testCheckApplicant() throws XRoadServiceConsumptionException {
-    List<Projekt> projects = kikCrossCheckXRoadService.checkApplicant("NORTAL AS", "10391131");
-    Assert.assertFalse(projects.isEmpty());
+  public void testCheckApplicantByRegNumber() throws XRoadServiceConsumptionException {
+    List<Projekt> projects = kikCrossCheckXRoadService.checkApplicantByRegNumber("9999999");
+    Assert.assertTrue(projects.isEmpty());
+  }
+
+  @Test
+  public void testCheckApplicantByName() throws XRoadServiceConsumptionException {
+    List<Projekt> projects = kikCrossCheckXRoadService.checkApplicantByName("TEST STRING");
+    Assert.assertTrue(projects.isEmpty());
   }
 }

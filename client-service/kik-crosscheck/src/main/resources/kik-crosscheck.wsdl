@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+    xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://kikas.x-road.ee" name="IKikasXtee" targetNamespace="http://kikas.x-road.ee">
+  <!-- cannot use xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" because soap-header is not accessible then -->
+  <wsdl:import location="http://x-road.eu/xsd/xroad.xsd" namespace="http://x-road.eu/xsd/xroad.xsd"></wsdl:import>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://kikas.x-road.ee">
+      <xsd:element name="kulutusRistkontroll">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SisendKuluridaRead" maxOccurs="1"
+                         minOccurs="0" type="tns:SisendKuluridaRead">
+
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="kulutusRistkontrollResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="KuluridadeArv" type="xsd:int"/>
+            <xsd:element name="Kuluread" type="tns:ValjundKulurida"
+                         maxOccurs="unbounded" minOccurs="0">
+            </xsd:element>
+            <xsd:element name="fault" type="tns:Fault"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:complexType name="SisendKulurida">
+        <xsd:sequence>
+          <xsd:element name="Kuupaev" type="xsd:dateTime"></xsd:element>
+          <xsd:element name="ReaSumma" type="xsd:decimal"></xsd:element>
+          <xsd:element name="Valjastaja" type="xsd:string"></xsd:element>
+          <xsd:element name="Number" type="xsd:string"></xsd:element>
+          <xsd:element name="PangastNumber" type="xsd:string"></xsd:element>
+
+
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="ValjundKulurida">
+        <xsd:sequence>
+          <xsd:element name="Number" type="xsd:string"></xsd:element>
+          <xsd:element name="Valjastaja" type="tns:Valjastaja"></xsd:element>
+          <xsd:element name="Kuupaev" type="xsd:dateTime"></xsd:element>
+          <xsd:element name="Summa" type="xsd:decimal"></xsd:element>
+          <xsd:element name="Kaibemaks" type="xsd:decimal"></xsd:element>
+          <xsd:element name="Kirjeldus" type="xsd:string"></xsd:element>
+
+          <xsd:element name="Projektid" type="tns:Projekt"
+                       maxOccurs="unbounded" minOccurs="0">
+          </xsd:element>
+          <xsd:element name="Meeded" type="tns:Meede" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Valjastaja">
+        <xsd:sequence>
+          <xsd:element name="Nimi" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Projekt">
+        <xsd:sequence>
+          <xsd:element name="Kood" type="xsd:string"></xsd:element>
+          <xsd:element name="Nimi" type="xsd:string"></xsd:element>
+          <xsd:element name="Taotleja" type="tns:ValjundTaotleja"></xsd:element>
+          <xsd:element name="Asukohad" type="tns:Asukoht"
+                       maxOccurs="unbounded" minOccurs="0">
+          </xsd:element>
+          <xsd:element name="Seisundid" type="tns:Seisund"
+                       maxOccurs="unbounded" minOccurs="0">
+          </xsd:element>
+          <xsd:element name="Meede" type="tns:Meede"></xsd:element>
+          <xsd:element name="Programmperiood" type="xsd:string"></xsd:element>
+          <xsd:element name="Eelarve" type="tns:Finantsallikas"
+                       maxOccurs="unbounded" minOccurs="0">
+          </xsd:element>
+          <xsd:element name="Maksed" type="tns:Finantsallikas" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Meede">
+        <xsd:sequence>
+          <xsd:element name="Number" type="xsd:string"></xsd:element>
+          <xsd:element name="Nimi" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Finantsallikas">
+        <xsd:sequence>
+          <xsd:element name="Kood" type="xsd:string"></xsd:element>
+          <xsd:element name="Nimi" type="xsd:string"></xsd:element>
+          <xsd:element name="Summa" type="xsd:decimal" maxOccurs="1" minOccurs="0"></xsd:element>
+
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="projektRistkontroll">
+        <xsd:complexType>
+          <xsd:sequence>
+
+            <xsd:element name="Taotlejad" type="tns:Taotlejad"
+                         maxOccurs="1" minOccurs="0">
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="projektRistkontrollResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+
+            <xsd:element name="ProjektideArv"
+                         type="xsd:int">
+            </xsd:element>
+            <xsd:element name="Projektid" type="tns:Projekt"
+                         maxOccurs="unbounded" minOccurs="0">
+            </xsd:element>
+            <xsd:element name="fault" type="tns:Fault">
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:complexType name="SisendTaotleja">
+        <xsd:sequence>
+          <xsd:element name="TaotlejaNimi"
+                       type="xsd:string">
+          </xsd:element>
+          <xsd:element name="TaotlejaKood"
+                       type="xsd:string">
+          </xsd:element>
+          <xsd:element name="TaotlejaEsindajaNimi"
+                       type="xsd:string">
+          </xsd:element>
+          <xsd:element name="TaotlejaEsindajaKood" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="ValjundTaotleja">
+        <xsd:sequence>
+          <xsd:element name="Nimi" type="xsd:string"></xsd:element>
+          <xsd:element name="Kood" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Asukoht">
+        <xsd:sequence>
+          <xsd:element name="Kirjeldus" type="xsd:string"></xsd:element>
+          <xsd:element name="Ehak" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Seisund">
+        <xsd:sequence>
+          <xsd:element name="Nimetus" type="xsd:string"></xsd:element>
+          <xsd:element name="Kuupaev" type="xsd:dateTime"
+                       maxOccurs="1" minOccurs="0">
+          </xsd:element>
+          <xsd:element name="Markused" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Fault">
+        <xsd:sequence>
+          <xsd:element name="faultCode" type="xsd:string"></xsd:element>
+          <xsd:element name="faultString" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="projektRistkontrollFault">
+        <xsd:complexType>
+          <xsd:sequence>
+
+            <xsd:element name="projektRistkontrollFault"
+                         type="xsd:string">
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:complexType name="SisendKuluridaRead">
+        <xsd:sequence>
+          <xsd:element name="SisendKulurida"
+                       type="tns:SisendKulurida" maxOccurs="unbounded" minOccurs="0">
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Taotlejad">
+        <xsd:sequence>
+          <xsd:element name="SisendTaotleja"
+                       type="tns:SisendTaotleja" maxOccurs="unbounded" minOccurs="0">
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="xrdheader">
+    <wsdl:part name="client" element="xrd:client"/>
+    <wsdl:part name="service" element="xrd:service"/>
+    <wsdl:part name="userId" element="xrd:userId"/>
+    <wsdl:part name="id" element="xrd:id"/>
+    <wsdl:part name="protocolVersion" element="xrd:protocolVersion"/>
+  </wsdl:message>
+  <wsdl:message name="kulutusRistkontrollRequest">
+    <wsdl:part element="tns:kulutusRistkontroll" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="kulutusRistkontrollResponse">
+    <wsdl:part element="tns:kulutusRistkontrollResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="projektRistkontrollRequest">
+    <wsdl:part name="parameters" element="tns:projektRistkontroll"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="projektRistkontrollResponse">
+    <wsdl:part name="parameters" element="tns:projektRistkontrollResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="projektRistkontrollFault">
+    <wsdl:part name="parameters" element="tns:projektRistkontrollFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IKikasXtee">
+    <wsdl:operation name="kulutusRistkontroll">
+      <wsdl:input message="tns:kulutusRistkontrollRequest"/>
+      <wsdl:output message="tns:kulutusRistkontrollResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="projektRistkontroll">
+      <wsdl:input message="tns:projektRistkontrollRequest"></wsdl:input>
+      <wsdl:output message="tns:projektRistkontrollResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="kikasXteeSOAP" type="tns:IKikasXtee">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="kulutusRistkontroll">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction="http://kikas.x-road.ee/kulutusRistkontroll"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:xrdheader" part="client" use="literal"/>
+        <soap:header message="tns:xrdheader" part="service" use="literal"/>
+        <soap:header message="tns:xrdheader" part="userId" use="literal"/>
+        <soap:header message="tns:xrdheader" part="id" use="literal"/>
+        <soap:header message="tns:xrdheader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:xrdheader" part="client" use="literal"/>
+        <soap:header message="tns:xrdheader" part="service" use="literal"/>
+        <soap:header message="tns:xrdheader" part="userId" use="literal"/>
+        <soap:header message="tns:xrdheader" part="id" use="literal"/>
+        <soap:header message="tns:xrdheader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="projektRistkontroll">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction="http://kikas.x-road.ee/projektRistkontroll"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:xrdheader" part="client" use="literal"/>
+        <soap:header message="tns:xrdheader" part="service" use="literal"/>
+        <soap:header message="tns:xrdheader" part="userId" use="literal"/>
+        <soap:header message="tns:xrdheader" part="id" use="literal"/>
+        <soap:header message="tns:xrdheader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:xrdheader" part="client" use="literal"/>
+        <soap:header message="tns:xrdheader" part="service" use="literal"/>
+        <soap:header message="tns:xrdheader" part="userId" use="literal"/>
+        <soap:header message="tns:xrdheader" part="id" use="literal"/>
+        <soap:header message="tns:xrdheader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IKikasXtee">
+    <wsdl:port binding="tns:kikasXteeSOAP" name="kikasXteeSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

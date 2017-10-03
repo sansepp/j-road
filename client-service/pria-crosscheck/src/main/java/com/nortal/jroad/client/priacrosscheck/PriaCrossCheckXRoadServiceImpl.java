@@ -1,17 +1,13 @@
 package com.nortal.jroad.client.priacrosscheck;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.priacrosscheck.database.PriaCrosscheckXRoadDatabase;
-import com.nortal.jroad.client.priacrosscheck.types.ee.riik.xtee.mait.producers.producer.mait.Kulurida;
-import com.nortal.jroad.client.priacrosscheck.types.ee.riik.xtee.mait.producers.producer.mait.KulutusRistkontrollRequest;
+import com.nortal.jroad.client.priacrosscheck.database.PriaMaitXRoadDatabase;
 import com.nortal.jroad.client.priacrosscheck.types.ee.riik.xtee.mait.producers.producer.mait.Projekt;
 import com.nortal.jroad.client.priacrosscheck.types.ee.riik.xtee.mait.producers.producer.mait.ProjektRistkontrollRequest;
 import com.nortal.jroad.client.priacrosscheck.types.ee.riik.xtee.mait.producers.producer.mait.Taotleja;
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,31 +16,29 @@ import org.springframework.stereotype.Service;
 @Service("priaCrossCheckXRoadService")
 public class PriaCrossCheckXRoadServiceImpl implements PriaCrossCheckXRoadService {
   @Resource
-  private PriaCrosscheckXRoadDatabase priaCrosscheckXRoadDatabase;
+  private PriaMaitXRoadDatabase priaMaitXRoadDatabase;
 
   @Override
-  public List<Projekt> checkApplicant(String applicantName) throws XRoadServiceConsumptionException {
-    ProjektRistkontrollRequest request = ProjektRistkontrollRequest.Factory.newInstance();
-    Taotleja applicant = request.addNewTaotleja();
-    applicant.setNimi(applicantName);
-    return priaCrosscheckXRoadDatabase.projektRistkontroll(request).getProjektList();
+  public List<Projekt> checkApplicantByRegNumber(String regNumber) throws XRoadServiceConsumptionException {
+    if (!StringUtils.isNumeric(regNumber)) {
+      throw new IllegalArgumentException("Registry number must be numeric!");
+    }
+    return checkApplicantByRegNumber(Long.valueOf(regNumber));
   }
 
   @Override
-  public List<Projekt> checkApplicant(long applicantRegNumber) throws XRoadServiceConsumptionException {
+  public List<Projekt> checkApplicantByRegNumber(long regNumber) throws XRoadServiceConsumptionException {
     ProjektRistkontrollRequest request = ProjektRistkontrollRequest.Factory.newInstance();
     Taotleja applicant = request.addNewTaotleja();
-    applicant.setKood(applicantRegNumber);
-    return priaCrosscheckXRoadDatabase.projektRistkontroll(request).getProjektList();
+    applicant.setKood(regNumber);
+    return priaMaitXRoadDatabase.projektRistkontrollV1(request).getProjektList();
   }
 
   @Override
-  public List<Kulurida> checkExpense(Date expenseDate, BigDecimal expenseSum) throws XRoadServiceConsumptionException {
-    KulutusRistkontrollRequest request = KulutusRistkontrollRequest.Factory.newInstance();
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(expenseDate);
-    request.setKuupaev(calendar);
-    request.setReaSumma(expenseSum);
-    return priaCrosscheckXRoadDatabase.kulutusRistkontroll(request).getKuluridaList();
+  public List<Projekt> checkApplicantByName(String name) throws XRoadServiceConsumptionException {
+    ProjektRistkontrollRequest request = ProjektRistkontrollRequest.Factory.newInstance();
+    Taotleja applicant = request.addNewTaotleja();
+    applicant.setNimi(name);
+    return priaMaitXRoadDatabase.projektRistkontrollV1(request).getProjektList();
   }
 }
