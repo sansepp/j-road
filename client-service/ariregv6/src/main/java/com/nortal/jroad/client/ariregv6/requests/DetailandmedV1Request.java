@@ -19,7 +19,6 @@ public abstract class DetailandmedV1Request {
   String[] getStatusNames(DetailAndmedV1Status[] statuses) {
     String[] result = new String[statuses.length];
     for (int i = 0; i < statuses.length; i++) {
-      DetailAndmedV1Status status = statuses[i];
       result[i] = statuses[i].name();
     }
     return result;
