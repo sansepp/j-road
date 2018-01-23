@@ -31,19 +31,19 @@
   </dependencies>
   <modules>
     <module>test</module>
-    <module>emkis</module>
-    <module>emtav6</module>
-    <module>ravimiregister</module>
-    <module>evkrv6</module>
+    <!--<module>emkis</module>-->
+    <!--<module>emtav6</module>-->
+    <!--<module>ravimiregister</module>-->
+    <!--<module>evkrv6</module>-->
     <module>ariregv6</module>
-    <module>kirstv6</module>
-    <module>krv6</module>
-    <module>rrv6</module>
-    <module>liiklusregisterv6</module>
-    <module>ljvis</module>
-    <module>jvis</module>
-    <module>digiluguv6</module>
-    <module>lkfv6</module>
+    <!--<module>kirstv6</module>-->
+    <!--<module>krv6</module>-->
+    <!--<module>rrv6</module>-->
+    <!--<module>liiklusregisterv6</module>-->
+    <!--<module>ljvis</module>-->
+    <!--<module>jvis</module>-->
+    <!--<module>digiluguv6</module>-->
+    <!--<module>lkfv6</module>-->
     <module>kik-crosscheck</module>
     <module>pria-crosscheck</module>
 
