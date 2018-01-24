@@ -69,6 +69,7 @@ public class XTeeSoapProvider extends Soap11Provider {
       header.setPart(parts[i]);
       if (use.equalsIgnoreCase(LITERAL)) {
         header.setUse(LITERAL);
+        header.setEncodingStyles(null);
       } else {
         header.setUse(ENCODED);
         header.setEncodingStyles(Arrays.asList(ENCODING));
@@ -176,6 +177,7 @@ public class XTeeSoapProvider extends Soap11Provider {
   protected void populateSoapBody(SOAPBody soapBody) throws WSDLException {
     if (use.equalsIgnoreCase(LITERAL)) {
       soapBody.setUse(LITERAL);
+      soapBody.setEncodingStyles(null);
     } else {
       soapBody.setUse(ENCODED);
       List<String> encStyles = new ArrayList<String>(1);
